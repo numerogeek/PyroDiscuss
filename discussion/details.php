@@ -25,7 +25,7 @@ class Module_Discussion extends Module {
 	{
 		return array(
 			'name' => array(
-				'en' => 'Discuss'
+				'en' => 'Discussion'
 			),
 			'description' => array(
 				'en' => 'A simple discussion panel for members'
