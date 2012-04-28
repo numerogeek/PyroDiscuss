@@ -12,7 +12,7 @@
 
 class Module_Discussion extends Module {
 
-	public $version = '1.0.1';
+	public $version = '0.9.0';
 	public $db_pre;
 	
 	public function __construct()
