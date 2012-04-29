@@ -12,7 +12,7 @@
 
 class Module_Discussion extends Module {
 
-	public $version = '0.9.0';
+	public $version = '0.9.1';
 	public $db_pre;
 	
 	public function __construct()
@@ -36,7 +36,7 @@ class Module_Discussion extends Module {
 			'shortcuts' => array(
 				array(
 			 	   'name' => 'topic.create_button',
-				   'uri' => 'admin/discussion/create',
+				   'uri' => 'admin/discussion/edit',
 				   'class' => 'add'
 				),
 			),
@@ -52,7 +52,9 @@ class Module_Discussion extends Module {
 				`type` ENUM( 'topic', 'comment' ) collate utf8_unicode_ci NOT NULL DEFAULT 'topic',
 				`belongs_to` int(11) NOT NULL default 0,
 				`title` varchar(150) collate utf8_unicode_ci NOT NULL default '',
-				`desc` varchar(750) collate utf8_unicode_ci NOT NULL default '',
+				`desc` varchar(600) collate utf8_unicode_ci NOT NULL default '',
+				`parsed` varchar(750) collate utf8_unicode_ci NOT NULL default '',
+				`tot_comments` int(11) NOT NULL default 0,
 				`comment` varchar(250) collate utf8_unicode_ci NOT NULL default '',
 				`created_on` int(11) NOT NULL default 0,
 				`last_updated` int(11) NOT NULL default 0,
