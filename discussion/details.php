@@ -12,7 +12,7 @@
 
 class Module_Discussion extends Module {
 
-	public $version = '0.9.1';
+	public $version = '0.9.2';
 	public $db_pre;
 	
 	public function __construct()
@@ -25,7 +25,7 @@ class Module_Discussion extends Module {
 	{
 		return array(
 			'name' => array(
-				'en' => 'Discussion'
+				'en' => 'Discussions'
 			),
 			'description' => array(
 				'en' => 'A simple discussion panel for members'

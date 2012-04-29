@@ -19,8 +19,10 @@ $lang['topic.create_button'] = 'Create topic';
 $lang['topic.submit_button'] = 'Submit';
 $lang['topic.cancel_button'] = 'Cancel';
 
-$lang['topic.topic_success'] = 'The topic has been submitted successfully';
-$lang['topic.topic_error'] = 'Oops! Looks like there is an issue in submitting the topic. Please try again.';
+$lang['topic.topic_add_success'] = 'The topic has been submitted successfully';
+$lang['topic.topic_add_error'] = 'Oops! Looks like there is an issue in submitting the topic. Please try again.';
+$lang['topic.topic_edit_success'] = 'The topic has been edited successfully';
+$lang['topic.topic_edit_error'] = 'Oops! Looks like there is an issue in editing the topic. Please try again.';
 $lang['topic.comment_success'] = 'The comment has been added successfully';
 $lang['topic.comment_error'] = 'Oops! Looks like there is an issue in submitting the comment. Please try again.';
 $lang['topic.topic_delete_success'] = 'The topic has been deleted successfully';

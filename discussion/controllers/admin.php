@@ -45,7 +45,7 @@
 
  	public function index() 
  	{
-		$pagination = create_pagination('admin/discussion/index', $this->discussion_m->count_all(), NULL, 3);
+		$pagination = create_pagination('admin/discussion/index', $this->discussion_m->count_all());
 		
 		$topics = $this->discussion_m->limit($pagination['limit'])->get_many_by();
 		
@@ -84,13 +84,13 @@
 		
 				if($topic_id) 
 				{
-					$this->session->set_flashdata('success', $this->lang->line('topic.topic_success'));
+					$this->session->set_flashdata('success', $this->lang->line('topic.topic_create_success'));
 
 					redirect('admin/discussion/view/'.$topic_id);
 
 				} else 
 				{	
-					$this->session->set_flashdata('error', $this->lang->line('topic.topic_error'));	
+					$this->session->set_flashdata('error', $this->lang->line('topic.topic_create_error'));	
 				}
 			}	
 			else 
@@ -118,13 +118,13 @@
 				
 				if($topic_id) 
 				{
-					$this->session->set_flashdata('success', $this->lang->line('topic.topic_success'));
+					$this->session->set_flashdata('success', $this->lang->line('topic.topic_edit_success'));
 
-					redirect('admin/discussion/view/'.$topic_id);
+					redirect('admin/discussion/view/'.$id);
 
 				} else 
 				{	
-					$this->session->set_flashdata('error', $this->lang->line('topic.topic_error'));	
+					$this->session->set_flashdata('error', $this->lang->line('topic.topic_edit_error'));	
 				}
 			}
 			else

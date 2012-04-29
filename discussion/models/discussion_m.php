@@ -24,7 +24,7 @@
 		$this->db->select('discussions.*, profiles.display_name')
 			->join('profiles', 'profiles.user_id = discussions.created_by', 'left');
 			
-		$this->db->order_by('id', 'desc');
+		$this->db->order_by('last_updated', 'desc');
 		if (isset($params['limit']) && is_array($params['limit']))
 			$this->db->limit($params['limit'][0], $params['limit'][1]);
 		elseif (isset($params['limit']))

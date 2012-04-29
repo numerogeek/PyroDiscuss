@@ -40,10 +40,12 @@
 		<div class="span10">
 			<?php foreach($comments as $comment): ?>
 			
-				<div class="span6">
+				<div class="span7">
 					<?php echo $comment->comment; 
 					if($enable_delete) { ?>
-						<div class="top10 icon-remove"><?php echo anchor('admin/discussion/view/'.$topic->id.'/delete/'.$comment->id, lang('global:delete'), 'class="pad15"'); ?></div>
+						<div>
+							<?php echo anchor('admin/discussion/view/'.$topic->id.'/delete/'.$comment->id, lang('global:delete'), 'class="btn red"'); ?>
+						</div>
 					<?php } ?>
 				</div>
 				<div class="span3 comment_info">

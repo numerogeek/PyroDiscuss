@@ -39,7 +39,7 @@
 			<?php endforeach; ?>
 		</tbody>
 	</table>	
-	<?php echo $pagination['links']; ?>
+	<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
 	
 	<?php else: ?>
 		<div class="no_data"><?php echo lang('topic.no_topics');?></div>
