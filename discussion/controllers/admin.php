@@ -57,46 +57,81 @@
  			->build('admin/list_topics');
  	}
 
- 	public function create()
+ 	public function edit($id = 0)
  	{
  		$created_now = now();
 
  		$this->form_validation->set_rules($this->create_topic_rules);
+		
+		if($id == 0) 
+		{
+			if ($this->form_validation->run()) 
+			{
+				$rqstObj = array(
+					'type'				=> 'topic',
+					'belongs_to'		=>	0,
+					'title'				=> $this->input->post('title'),
+					'desc'				=> $this->input->post('desc'),
+					'parsed'			=> parse_markdown($this->input->post('desc')),
+					'created_on'		=> $created_now,
+					'last_updated'		=> $created_now,
+					'created_by'		=> $this->current_user->id,
+					'user_email'		=> $this->current_user->email,
+					'display_name'		=> $this->current_user->display_name,
+					);
 
- 		if ($this->form_validation->run()) 
- 		{
- 			$rqstObj = array(
-				'type'				=> 'topic',
-				'belongs_to'		=>	0,
- 				'title'				=> $this->input->post('title'),
-				'desc'				=> parse_markdown(htmlspecialchars($this->input->post('desc'), NULL, FALSE)),
-				'created_on'		=> $created_now,
-				'last_updated'		=> $created_now,
-				'created_by'		=> $this->current_user->id,
-				'user_email'		=> $this->current_user->email,
-				'display_name'		=> $this->current_user->display_name,
-	 			);
+				$topic_id = $this->discussion_m->save_topic($rqstObj);
+		
+				if($topic_id) 
+				{
+					$this->session->set_flashdata('success', $this->lang->line('topic.topic_success'));
 
- 			$topic_id = $this->discussion_m->save_topic($rqstObj);
+					redirect('admin/discussion/view/'.$topic_id);
 
- 			if($topic_id) 
- 			{
- 				$this->session->set_flashdata('success', $this->lang->line('topic.topic_success'));
+				} else 
+				{	
+					$this->session->set_flashdata('error', $this->lang->line('topic.topic_error'));	
+				}
+			}	
+			else 
+			{
+				foreach ($this->create_topic_rules as $key => $field) 
+				{
+					$topic->$field['field'] = set_value($field['field']);
+				}
+			}
+		}
+		else
+		{			
+			if ($this->form_validation->run()) 
+			{
+				$rqstObj = array(
+					'title'				=> $this->input->post('title'),
+					'desc'				=> $this->input->post('desc'),
+					'parsed'			=> parse_markdown($this->input->post('desc')),
+					'last_updated'		=> $created_now,
+					);
+					
+				$this->db->where('id', $id);
+				
+				$topic_id = $this->db->update('discussions', $rqstObj);
+				
+				if($topic_id) 
+				{
+					$this->session->set_flashdata('success', $this->lang->line('topic.topic_success'));
 
- 				redirect('admin/discussion/view/'.$topic_id);
+					redirect('admin/discussion/view/'.$topic_id);
 
- 			} else 
-			{	
-				$this->session->set_flashdata('error', $this->lang->line('topic.topic_error'));	
- 			}
- 		} 
- 		else 
- 		{
- 			foreach ($this->create_topic_rules as $key => $field) 
- 			{
- 				$topic->$field['field'] = set_value($field['field']);
- 			}
- 		}
+				} else 
+				{	
+					$this->session->set_flashdata('error', $this->lang->line('topic.topic_error'));	
+				}
+			}
+			else
+			{
+				$topic = $this->db->get_where('discussions', array('id' => $id, 'type' => 'topic'))->first_row();
+			}
+		}
 
  		$this->template
 			->title($this->module_details['name'], sprintf(lang('topic.create_label')))
@@ -141,7 +176,7 @@
 				{
 					$this->db->where('id', $topic_id);
 					
-					$update = $this->db->update('discussions',array('last_updated' => $created_now));
+					$update = $this->db->update('discussions', array('last_updated' => $created_now, 'tot_comments' => $topic->tot_comments + 1));
 				
 					$this->session->set_flashdata('success', $this->lang->line('topic.comment_success'));
 					
