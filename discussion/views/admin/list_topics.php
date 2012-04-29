@@ -21,7 +21,7 @@
 				<td><?php echo $topic->title; ?></td>
 				<td><?php echo anchor('user/' . $topic->created_by, $topic->display_name, 'target="_blank"'); ?></td>
 				<td><?php echo format_date($topic->created_on); ?></td>
-				<td><?php echo $topic->tot_comments; ?></td>
+				<td style="text-align:center"><?php echo $topic->tot_comments; ?></td>
 				<td>
 					<?php 
 						if(floor(now() - $topic->created_on/604800) > 0) { 
