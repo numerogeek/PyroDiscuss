@@ -1,6 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- *
  * Discussion Module
  *
  * @author		Gogula Krishnan Rajaprabhu
@@ -21,7 +20,7 @@
 		'desc' => array(
 			'field' => 'desc',
 			'label' => 'lang:topic.desc_error',
-			'rules' => 'trim|required'
+			'rules' => 'trim|required|max_length[600]'
 		)
 	);
 	
@@ -145,8 +144,6 @@
  	{
 		$created_now = now();
 		
-		$enable_delete = FALSE;
-		
 		$add_comment = $this->input->post('add_comment');
 		
  		if ( ! $topic_id or ! $topic = $this->db->get_where('discussions', array('id' => $topic_id, 'type' => 'topic'))->first_row() )
@@ -214,25 +211,13 @@
 		}
 		
 		$comments = $this->discussion_m->get_comments($topic_id);
-	
-		if($comments)
-		{
-			foreach($comments as $row)
-			{
-				if($row->created_by == $this->current_user->id)
-				{
-					$enable_delete = TRUE;
-				}
-			}
-		}		
 			
  		$this->template
-			->title($this->module_details['name'], sprintf(lang('topic.topic_title_label'), $topic->title))
+			->title($this->module_details['name'], $topic->title)
 			->append_css('module::discussion.css')
 			->set('topic', $topic)
 			->set('add_comment', $add_comment)
 			->set('comments',$comments)
-			->set('enable_delete', $enable_delete)
  			->build('admin/view_topic');
  	} 
 	

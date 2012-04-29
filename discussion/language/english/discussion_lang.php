@@ -2,10 +2,10 @@
 
 // Labels
 $lang['topic.module_label'] = 'Discussion forum';
-$lang['topic.create_label'] = 'Create a topic to discuss';
+$lang['topic.create_label'] = 'Create topic';
 $lang['topic.edit_label'] = 'Edit topic';
-$lang['topic.title_label'] = 'Give a title for the topic';
-$lang['topic.desc_label'] = 'Brief something that you wish to discuss';
+$lang['topic.title_label'] = 'Topic title';
+$lang['topic.desc_label'] = 'Topic description';
 $lang['topic.add_comment_label'] = 'Add comment';
 $lang['topic.comments_label'] = 'Comments';
 $lang['topic.topic_all_label'] = 'All Discussions';
@@ -14,6 +14,7 @@ $lang['topic.topic_author_label'] = 'Posted by';
 $lang['topic.topic_created_label'] = 'Posted on';
 $lang['topic.topic_updated_label'] = 'Last Updated';
 $lang['topic.no_topics'] = 'No topics yet. How about adding one?';
+$lang['topic.view_topics_label'] = 'View topics';
 
 $lang['topic.create_button'] = 'Create topic';
 $lang['topic.submit_button'] = 'Submit';

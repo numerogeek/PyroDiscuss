@@ -25,6 +25,7 @@
 			<?php if($this->current_user->id == $topic->created_by) { ?>
 				<div class="right">
 					<?php echo anchor('admin/discussion/edit/' . $topic->id, lang('global:edit'), array('class'=>'btn orange')); ?>
+					<?php echo anchor('admin/discussion/delete/' . $topic->id, lang('global:delete'), array('class'=>'confirm btn red delete')); ?>
 				</div>
 			<?php } ?>
 		</div>
@@ -42,7 +43,7 @@
 			
 				<div class="span7">
 					<?php echo $comment->comment; 
-					if($enable_delete) { ?>
+					if($this->current_user->id == $comment->created_by) { ?>
 						<div>
 							<?php echo anchor('admin/discussion/view/'.$topic->id.'/delete/'.$comment->id, lang('global:delete'), 'class="btn red"'); ?>
 						</div>

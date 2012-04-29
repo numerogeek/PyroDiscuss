@@ -12,7 +12,7 @@
 			<th class="collapse"><?php echo lang('topic.topic_created_label'); ?></th>
 			<th class="collapse"><?php echo lang('topic.comments_label'); ?></th>
 			<th class="collapse"><?php echo lang('topic.topic_updated_label'); ?></th>
-			<th width="120"></th>
+			<th width="60"></th>
 		  </tr>
 		</thead>
 		<tbody>
@@ -33,7 +33,6 @@
 				</td>
 				<td>
 					<?php echo anchor('admin/discussion/view/' . $topic->id, lang('global:view'), array('class'=>'btn green')); ?>
-					<?php echo anchor('admin/discussion/delete/' . $topic->id, lang('global:delete'), array('class'=>'confirm btn red delete')); ?>
 				</td>
 			</tr>
 			<?php endforeach; ?>
