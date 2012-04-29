@@ -11,7 +11,7 @@ $lang['topic.topic_all_label'] = 'All Discussions';
 $lang['topic.topic_title_label'] = 'Topic';
 $lang['topic.topic_author_label'] = 'Posted by';
 $lang['topic.topic_created_label'] = 'Posted on';
-$lang['topic.topic_updated_label'] = 'Updated on';
+$lang['topic.topic_updated_label'] = 'Last Updated';
 $lang['topic.no_topics'] = 'No topics yet. How about adding one?';
 
 $lang['topic.create_button'] = 'Create topic';
