@@ -3,6 +3,7 @@
 // Labels
 $lang['topic.module_label'] = 'Discussion forum';
 $lang['topic.create_label'] = 'Create a topic to discuss';
+$lang['topic.edit_label'] = 'Edit topic';
 $lang['topic.title_label'] = 'Give a title for the topic';
 $lang['topic.desc_label'] = 'Brief something that you wish to discuss';
 $lang['topic.add_comment_label'] = 'Add comment';

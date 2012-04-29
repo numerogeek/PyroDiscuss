@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo lang('topic.create_label'); ?></h4>
+	<h4><?php if($topic->title == "") { echo lang('topic.create_label'); } else { echo lang('topic.edit_label'); } ?></h4>
 </section>
 
 <section class="item">
