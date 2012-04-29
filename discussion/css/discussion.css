@@ -16,6 +16,7 @@ p{margin-top:0px}
 .comment_info {float:right;}
 .comment_info img {margin-right:5px;margin-top:3px;}
 .comment_info div {float:left;padding-right:2px;font-size:12px;}
-.comment_info .date {font-size:11px;font-style:italic;}
+.date {font-size:11px;font-style:italic;}
 .icon-remove{background:url('../img/delete.png') no-repeat 0 1px;}
 .icon-remove a{color:red;font-size:11px;}
+.group_title {font-size:15px;font-weight:bold;padding-left:13px;padding-bottom:10px;}
