@@ -44,7 +44,9 @@
 
  	public function index() 
  	{
-		$pagination = create_pagination('admin/discussion/index', $this->discussion_m->count_all());
+		$base_where = array('type' => 'topic');
+		
+		$pagination = create_pagination('admin/discussion/index', $this->discussion_m->count_by($base_where));
 		
 		$topics = $this->discussion_m->limit($pagination['limit'])->get_many_by();
 		
@@ -160,7 +162,8 @@
 				$rqstObj = array(
 					'type'				=> 'comment',
 					'belongs_to'		=> $topic_id,
-					'comment'			=> parse_markdown(htmlspecialchars($this->input->post('add_comment'), NULL, FALSE)),
+					'desc'				=> $this->input->post('add_comment'),
+					'parsed'			=> parse_markdown(htmlspecialchars($this->input->post('add_comment'), NULL, FALSE)),
 					'created_on'		=> $created_now,
 					'created_by'		=> $this->current_user->id,
 					'user_email'		=> $this->current_user->email,
