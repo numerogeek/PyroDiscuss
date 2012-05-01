@@ -6,7 +6,6 @@
 
 	<div class="row">
 		<div class="span2">
-			<div class="group_title"><?php echo ucfirst($this->current_user->group); ?></div>
 			<p><?php echo gravatar($topic->user_email, 70);?></p>
 			<div><strong><?php echo $topic->display_name; ?></strong></div>
 			<div class="date">
@@ -42,7 +41,7 @@
 			<?php foreach($comments as $comment): ?>
 			
 				<div class="span7">
-					<?php echo $comment->comment; 
+					<?php echo $comment->parsed; 
 					if($this->current_user->id == $comment->created_by) { ?>
 						<div>
 							<?php echo anchor('admin/discussion/view/'.$topic->id.'/delete/'.$comment->id, lang('global:delete'), 'class="confirm btn red"'); ?>

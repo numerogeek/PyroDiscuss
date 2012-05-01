@@ -55,7 +55,6 @@ class Module_Discussion extends Module {
 				`desc` varchar(600) collate utf8_unicode_ci NOT NULL default '',
 				`parsed` varchar(750) collate utf8_unicode_ci NOT NULL default '',
 				`tot_comments` int(11) NOT NULL default 0,
-				`comment` varchar(250) collate utf8_unicode_ci NOT NULL default '',
 				`created_on` int(11) NOT NULL default 0,
 				`last_updated` int(11) NOT NULL default 0,
 				`created_by` int(11) NOT NULL default '0',
