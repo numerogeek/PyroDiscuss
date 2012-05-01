@@ -45,7 +45,7 @@
 					<?php echo $comment->comment; 
 					if($this->current_user->id == $comment->created_by) { ?>
 						<div>
-							<?php echo anchor('admin/discussion/view/'.$topic->id.'/delete/'.$comment->id, lang('global:delete'), 'class="btn red"'); ?>
+							<?php echo anchor('admin/discussion/view/'.$topic->id.'/delete/'.$comment->id, lang('global:delete'), 'class="confirm btn red"'); ?>
 						</div>
 					<?php } ?>
 				</div>
