@@ -68,7 +68,7 @@
 
 	public function get_comments($key) 
 	{
-		$query = $this->db->get_where($this->_table, array('belongs_to' => $key));
+		$query = $this->db->order_by('id', 'asc')->get_where($this->_table, array('belongs_to' => $key));
 		
 		if($query->num_rows() > 0)
 		{
