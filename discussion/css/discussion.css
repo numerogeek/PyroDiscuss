@@ -3,7 +3,7 @@ p{margin-top:0px}
 .row:after{clear:both;}
 [class*="span"]{float:left;margin-left:20px;}
 .span10{width:780px;}
-.span7{width:540px;}
+.span7{width:600px;}
 .span2{width:140px;}
 .offset2{margin-left:180px;}
 .topic_title{font-size:22px;margin-bottom:30px;}
@@ -16,5 +16,8 @@ p{margin-top:0px}
 .comment_info {float:right;}
 .comment_info img {margin-right:5px;margin-top:3px;}
 .comment_info div {float:left;padding-right:2px;font-size:12px;}
-.date {font-size:11px;font-style:italic;}
+.date {font-size:11px;font-style:italic;color:#aaa;}
 .group_title {font-size:15px;font-weight:bold;padding-left:13px;padding-bottom:10px;}
+.delete_icon {background:url('../img/delete.png') no-repeat 0 0;padding-left:15px;}
+.delete_icon a {color:red;}
+.delete_icon a:hover {text-decoration:underline;}
