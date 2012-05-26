@@ -10,11 +10,14 @@ $lang['topic.add_comment_label'] = 'Add comment';
 $lang['topic.comments_label'] = 'Comments';
 $lang['topic.topic_all_label'] = 'All Discussions';
 $lang['topic.topic_title_label'] = 'Topic';
-$lang['topic.topic_author_label'] = 'Posted by';
-$lang['topic.topic_created_label'] = 'Posted on';
+$lang['topic.topic_author_label'] = 'Created by';
+$lang['topic.topic_created_label'] = 'Created on';
 $lang['topic.topic_updated_label'] = 'Last Updated';
 $lang['topic.no_topics'] = 'No topics yet. How about adding one?';
 $lang['topic.view_topics_label'] = 'View topics';
+
+$lang['topic.title_helper_label'] = 'Descriptive title not more than 100 characters.';
+$lang['topic.desc_helper_label'] = 'Describe something relevant to the above title.';
 
 $lang['topic.create_button'] = 'Create topic';
 $lang['topic.submit_button'] = 'Submit';
