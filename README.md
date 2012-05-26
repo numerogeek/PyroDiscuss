@@ -1,4 +1,4 @@
-## PyroDiscuss v1.0.1 beta
+## PyroDiscuss v1.0.1
 
 PyroDiscuss is a back-end module for PyroCMS and it supports the latest version 2.1.x. 
 
