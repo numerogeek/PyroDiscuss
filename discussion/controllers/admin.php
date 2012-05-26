@@ -20,7 +20,7 @@
 		'desc' => array(
 			'field' => 'desc',
 			'label' => 'lang:topic.desc_error',
-			'rules' => 'trim|required|max_length[600]'
+			'rules' => 'trim|required'
 		)
 	);
 	
@@ -39,6 +39,8 @@
 		$this->lang->load('discussion');
 		$this->load->library('form_validation');
 		$this->load->model('discussion_m');
+		$this->load->model('groups/group_m');
+		$this->load->helper('discussion');
 
  	}
 
@@ -104,6 +106,13 @@
 		}
 		else
 		{			
+			$topic = $this->db->get_where('discussions', array('id' => $id, 'type' => 'topic'))->first_row();
+			
+			if(!$topic OR $this->current_user->id != $topic->created_by)
+			{
+				redirect('admin/discussion');
+			}
+
 			if ($this->form_validation->run()) 
 			{
 				$rqstObj = array(
@@ -136,6 +145,7 @@
 
  		$this->template
 			->title($this->module_details['name'], sprintf(lang('topic.create_label')))
+			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
 			->append_css('module::discussion.css')
  			->set('topic', $topic)
  			->build('admin/create_topic');
@@ -163,7 +173,7 @@
 					'type'				=> 'comment',
 					'belongs_to'		=> $topic_id,
 					'desc'				=> $this->input->post('add_comment'),
-					'parsed'			=> parse_markdown(htmlspecialchars($this->input->post('add_comment'), NULL, FALSE)),
+					'parsed'			=> parse_markdown($this->input->post('add_comment')),
 					'created_on'		=> $created_now,
 					'created_by'		=> $this->current_user->id,
 					'user_email'		=> $this->current_user->email,
@@ -199,6 +209,13 @@
 		}
 		else if($option === 'delete')
 		{
+			$query = $this->discussion_m->get_where('discussions', array('id' => $id, 'belongs_to' => $topic_id))->first_row();
+			
+			if(!$query OR $this->current_user->id != $query->created_by) 
+			{
+				redirect('admin/discussion');
+			}
+
 			$hrc = $this->db->delete('discussions', array('belongs_to' => $topic_id, 'id' => $id));
 			
 			if($hrc)
@@ -217,6 +234,7 @@
 			
  		$this->template
 			->title($this->module_details['name'], $topic->title)
+			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
 			->append_css('module::discussion.css')
 			->set('topic', $topic)
 			->set('add_comment', $add_comment)
@@ -226,6 +244,13 @@
 	
 	public function delete($id)
 	{
+		$query = $this->discussion_m->get_where('discussions', array('id' => $id))->first_row();
+			
+		if(!$query OR $this->current_user->id != $query->created_by) 
+		{
+			redirect('admin/discussion');
+		}
+
 		$hrc1 = $this->db->delete('discussions', array('id' => $id));
 		
 		$hrc2 = $this->db->delete('discussions', array('belongs_to' => $id));
