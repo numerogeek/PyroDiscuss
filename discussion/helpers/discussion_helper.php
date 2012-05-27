@@ -1,13 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Discussion Module
-*
-* @author		Gogula Krishnan Rajaprabhu
-* @package		Netpines
-* @subpackage	Discussion Module
-* @category	Helpers
-* @website		http://netpines.com
-*/
+ * Discussion Module
+ *
+ * @author		Gogula Krishnan Rajaprabhu
+ * @package		PyroCMS\Addon\Modules\Discussion\Helpers
+ * @website		http://netpines.com
+ */
 
 /**
 * Return a users group name

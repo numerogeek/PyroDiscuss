@@ -1,6 +1,5 @@
 <?php
 
-// Labels
 $lang['topic.module_label'] = 'Discussion forum';
 $lang['topic.create_label'] = 'Create topic';
 $lang['topic.edit_label'] = 'Edit topic';

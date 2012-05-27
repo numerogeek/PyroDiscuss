@@ -1,18 +1,16 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
- *
  * Discussion Module
  *
  * @author		Gogula Krishnan Rajaprabhu
- * @package		Netpines
- * @subpackage	Discussion Module
- * @category	Modules
+ * @package		PyroCMS\Addon\Modules\Discussion
  * @website		http://netpines.com
+ * @version		1.0.2
  */
 
 class Module_Discussion extends Module {
 
-	public $version = '1.0.1';
+	public $version = '1.0.2';
 	public $db_pre;
 	
 	public function __construct()
@@ -86,7 +84,20 @@ class Module_Discussion extends Module {
 
 	public function help()
 	{
-		return "No documentation has been added for this module.<br />Contact the module developer for assistance.";
+		$help = "<h3>PyroDiscuss v1.0.2</h3>";
+		$help .= "PyroDiscuss is a back-end module for PyroCMS and it supports the latest version 2.1.x.<br />"; 
+		$help .= "It helps members to start a discussion internally and collaborate provided the group must be give permissions.<br /><br />";
+		$help .= "<strong>Features:</strong><br />";
+		$help .= "1. create / edit / delete topic<br />";
+		$help .= "2. Add / delete comment<br />";
+		$help .= "3. View topics<br /><br />";
+		$help .= "<strong>Installation:</strong><br />";
+		$help .= "1. Download the archive and upload via CP<br />";
+		$help .= "2. Install the module<br /><br />";
+		$help .= "Reach us for issues / feedback at <a href=\"mailto:hello@netpines.com\"><strong>NetPines Support</strong></a> or tweet us <a href=\"http://twitter.com/netpines\" target=\"_blank\"><strong>@netpines</strong></a><br /><br />";
+		$help .= "Note: This is not forum based. A simple discussion panel which is nothing but a single thread in forum.<br />";
+		
+		return $help;
 	}
 }
 /* End of file details.php */

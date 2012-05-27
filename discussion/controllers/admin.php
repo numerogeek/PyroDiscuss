@@ -3,9 +3,7 @@
  * Discussion Module
  *
  * @author		Gogula Krishnan Rajaprabhu
- * @package		Netpines
- * @subpackage	Discussion Module
- * @category	Modules
+ * @package		PyroCMS\Addon\Modules\Controllers
  * @website		http://netpines.com
  */
 
@@ -43,11 +41,18 @@
 		$this->load->helper('discussion');
 
  	}
-
+	
+	/**
+	* Get the list of topics
+	* @access public
+	* @return void
+	*/
  	public function index() 
  	{
+		// should get by topic alone as we use only one table where comments also saved
 		$base_where = array('type' => 'topic');
 		
+		// as usual pagination stuff
 		$pagination = create_pagination('admin/discussion/index', $this->discussion_m->count_by($base_where));
 		
 		$topics = $this->discussion_m->limit($pagination['limit'])->get_many_by();
@@ -59,13 +64,20 @@
 			->set('pagination', $pagination)
  			->build('admin/list_topics');
  	}
-
+	
+	/**
+	* Create or edit topic
+	* @param int $id the topic id
+	* @access public
+	* @return void
+	*/
  	public function edit($id = 0)
  	{
  		$created_now = now();
 
  		$this->form_validation->set_rules($this->create_topic_rules);
 		
+		// someone is trying to add a topic
 		if($id == 0) 
 		{
 			if ($this->form_validation->run()) 
@@ -83,33 +95,39 @@
 					'display_name'		=> $this->current_user->display_name,
 					);
 
+				// save it in DB.
 				$topic_id = $this->discussion_m->save_topic($rqstObj);
 		
 				if($topic_id) 
 				{
+					// its inserted in DB and got a valid id. lets redirect it to view page
 					$this->session->set_flashdata('success', $this->lang->line('topic.topic_create_success'));
 
 					redirect('admin/discussion/view/'.$topic_id);
-
-				} else 
+				} 
+				else 
 				{	
+					// any problem, display it
 					$this->session->set_flashdata('error', $this->lang->line('topic.topic_create_error'));	
 				}
 			}	
 			else 
 			{
+				// validation fails. get the fields and populate it again.
 				foreach ($this->create_topic_rules as $key => $field) 
 				{
 					$topic->$field['field'] = set_value($field['field']);
 				}
 			}
 		}
+		// so he is editing a topic created by him
 		else
 		{			
 			$topic = $this->db->get_where('discussions', array('id' => $id, 'type' => 'topic'))->first_row();
 			
 			if(!$topic OR $this->current_user->id != $topic->created_by)
 			{
+				// prevent direct access via URL. only HE is authorized to edit the topic.
 				redirect('admin/discussion');
 			}
 
@@ -122,23 +140,27 @@
 					'last_updated'		=> $created_now,
 					);
 					
+				// update the needed info alone.
 				$this->db->where('id', $id);
 				
 				$topic_id = $this->db->update('discussions', $rqstObj);
 				
 				if($topic_id) 
 				{
+					// update success. show the view page
 					$this->session->set_flashdata('success', $this->lang->line('topic.topic_edit_success'));
 
 					redirect('admin/discussion/view/'.$id);
 
 				} else 
 				{	
+					// any problem. display it.
 					$this->session->set_flashdata('error', $this->lang->line('topic.topic_edit_error'));	
 				}
 			}
 			else
 			{
+				// get the info for the view page if it is not a POST
 				$topic = $this->db->get_where('discussions', array('id' => $id, 'type' => 'topic'))->first_row();
 			}
 		}
@@ -152,6 +174,14 @@
  	
  	}
 
+	/**
+	* View topic
+	* @access public
+	* @param int $topic_id the topic id
+	* @param var $option options for comments - add, delete
+	* @param int $id the comment id
+	* @return void
+	*/
  	public function view($topic_id = 0, $option = NULL, $id = 0)
  	{
 		$created_now = now();
@@ -160,9 +190,11 @@
 		
  		if ( ! $topic_id or ! $topic = $this->db->get_where('discussions', array('id' => $topic_id, 'type' => 'topic'))->first_row() )
 		{
+			// nothing here. better redirect.
 			redirect('admin/discussion');
 		}
 		
+		// add comment
 		if($option === 'add')
 		{
 			$this->form_validation->set_rules($this->add_comment_rules);
@@ -180,10 +212,12 @@
 					'display_name'		=> $this->current_user->display_name,
 					);
 					
+				// insert in the same table with type comment
 				$comment_id = $this->db->insert('discussions', $rqstObj);
 				
 				if($comment_id) 
 				{
+					// go and update the main record
 					$this->db->where('id', $topic_id);
 					
 					$update = $this->db->update('discussions', array('last_updated' => $created_now, 'tot_comments' => $topic->tot_comments + 1));
@@ -191,28 +225,30 @@
 					$this->session->set_flashdata('success', $this->lang->line('topic.comment_success'));
 					
 					redirect('admin/discussion/view/'.$topic_id);
-
 				} 
 				else 
 				{
+					// not OK. display error.
 					$this->session->set_flashdata('error', $this->lang->line('topic.comment_error'));
-					
 				}
 			}
 			else 
 			{
+				// validation fails. get the fields and populate it again.
 				foreach ($this->add_comment_rules as $key => $field) 
 				{
 					$field['field'] = set_value($field['field']);
 				}
 			}
 		}
+		// deleting a comment
 		else if($option === 'delete')
 		{
 			$query = $this->discussion_m->get_where('discussions', array('id' => $id, 'belongs_to' => $topic_id))->first_row();
 			
 			if(!$query OR $this->current_user->id != $query->created_by) 
 			{
+				// prevent direct access via URL. only HE is authorized to delete the comment.
 				redirect('admin/discussion');
 			}
 
@@ -230,6 +266,7 @@
 			redirect('admin/discussion/view/'.$topic_id);
 		}
 		
+		// get the comments for the view page
 		$comments = $this->discussion_m->get_comments($topic_id);
 			
  		$this->template
@@ -242,12 +279,19 @@
  			->build('admin/view_topic');
  	} 
 	
+	/**
+	* Delete topic
+	* @access public
+	* @param int $id the topic id
+	* @return void
+	*/
 	public function delete($id)
 	{
 		$query = $this->discussion_m->get_where('discussions', array('id' => $id))->first_row();
 			
 		if(!$query OR $this->current_user->id != $query->created_by) 
 		{
+			// prevent direct access via URL. only HE is authorized to delete the topic.
 			redirect('admin/discussion');
 		}
 

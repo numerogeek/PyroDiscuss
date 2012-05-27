@@ -23,10 +23,7 @@
 				<td><?php echo format_date($topic->created_on); ?></td>
 				<td style="text-align:center"><?php echo $topic->tot_comments; ?></td>
 				<td><?php echo format_date($topic->last_updated); ?></td>
-				
-				<td>
-					<?php echo anchor('admin/discussion/view/' . $topic->id, lang('global:view'), array('class'=>'btn green')); ?>
-				</td>
+				<td><?php echo anchor('admin/discussion/view/' . $topic->id, lang('global:view'), array('class'=>'btn green')); ?></td>
 			</tr>
 			<?php endforeach; ?>
 		</tbody>

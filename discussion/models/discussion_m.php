@@ -1,12 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- *
  * Discussion Module
  *
  * @author		Gogula Krishnan Rajaprabhu
- * @package		Netpines
- * @subpackage	Discussion Module
- * @category	Modules
+ * @package		PyroCMS\Addon\Modules\Discussion\Models
  * @website		http://netpines.com
  */
 
